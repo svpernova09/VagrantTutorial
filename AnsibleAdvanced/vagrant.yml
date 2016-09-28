@@ -1,0 +1,15 @@
+---
+- name: Prep and configure
+  hosts: vagrant
+  user: "vagrant"
+  become: yes
+  become_method: sudo
+
+  roles:
+    - geerlingguy.php
+    - geerlingguy.nginx
+    - geerlingguy.firewall
+    - geerlingguy.php-mysql
+    - geerlingguy.php-memcached
+    - geerlingguy.mysql
+    - manual-cleanup

@@ -1,0 +1,11 @@
+default ansible_ssh_host=SERVER_IP_HERE
+
+[production]
+default
+
+[production:vars]
+system_user="vagrant"
+domain_name="test.app"
+mysql_root_password="vagrant"
+mysql_user_name="vagrant"
+mysql_user_password="vagrant"

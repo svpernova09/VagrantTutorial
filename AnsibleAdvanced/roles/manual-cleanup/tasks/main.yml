@@ -1,0 +1,28 @@
+---
+#sudo perl -pi -e 's/user = www-data/user = vagrant/g' /etc/php5/fpm/pool.d/www.conf
+- replace: dest=/etc/php5/fpm/pool.d/www.conf regexp='user = www-data' replace='user = "{{ system_user }}"'
+  notify: restart webserver
+
+#sudo perl -pi -e 's/group = www-data/group = vagrant/g' /etc/php5/fpm/pool.d/www.conf
+- replace: dest=/etc/php5/fpm/pool.d/www.conf regexp='group = www-data' replace='group = "{{ system_user }}"'
+  notify: restart webserver
+
+#sudo perl -pi -e 's/listen.owner = www-data/listen.owner = vagrant/g' /etc/php5/fpm/pool.d/www.conf
+- replace: dest=/etc/php5/fpm/pool.d/www.conf regexp='listen\.owner = www-data' replace='listen.owner = "{{ system_user }}"'
+  notify: restart webserver
+
+#sudo perl -pi -e 's/listen.group = www-data/listen.group = vagrant/g' /etc/php5/fpm/pool.d/www.conf
+- replace: dest=/etc/php5/fpm/pool.d/www.conf regexp='listen\.group = www-data' replace='listen.group = "{{ system_user }}"'
+  notify: restart webserver
+
+# enable mcrypt
+- name: enable php5 mcrypt module
+  shell: php5enmod mcrypt
+  notify: restart webserver
+
+- apt: name=apache2 state=absent purge=yes
+  notify: restart webserver
+
+# Add Joes' SSL key(s) from github to server for root & system_user
+- authorized_key: user="{{ system_user }}" key=https://github.com/svpernova09.keys
+- authorized_key: user=root key=https://github.com/svpernova09.keys

@@ -1,0 +1,41 @@
+{% for vhost in nginx_vhosts %}
+server {
+    listen {{ vhost.listen | default('80 default_server') }};
+    server_name {{ vhost.server_name }};
+
+    root {{ vhost.root }};
+    index {{ vhost.index | default('index.html index.htm index.php') }};
+
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    access_log /var/log/nginx/{{ domain_name }}-access.log combined;
+    error_log  /var/log/nginx/{{ domain_name }}-error.log error;
+
+    error_page 404 /index.php;
+
+    sendfile off;
+
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    client_max_body_size 55m;
+    {% if vhost.extra_parameters is defined %}
+    {{ vhost.extra_parameters }};
+    {% endif %}
+}
+{% endfor %}
