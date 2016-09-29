@@ -410,7 +410,7 @@ rabbitmq:
     vhosts: {  }
     plugins: {  }
 elastic_search:
-    install: '1'
+    install: '0'
     settings:
         version: 2.3.1
         java_install: true
