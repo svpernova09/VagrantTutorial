@@ -1,2 +1,5 @@
 .vagrant
 *.retry
+Puphpet/puphpet/files/dot/ssh/*
+Puphpet/html
+.DS_Store

@@ -403,7 +403,7 @@ beanstalkd:
         binlogsize: '10485760'
     beanstalk_console: 0
 rabbitmq:
-    install: '1'
+    install: '0'
     settings:
         port: '5672'
     users: {  }
