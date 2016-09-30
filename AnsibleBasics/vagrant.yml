@@ -5,4 +5,4 @@
   sudo: yes
   roles:
     - install-vim
-    - ansible-role-php
+    - install-php
