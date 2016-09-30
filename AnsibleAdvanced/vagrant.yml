@@ -8,8 +8,8 @@
   roles:
     - geerlingguy.php
     - geerlingguy.nginx
-    - geerlingguy.firewall
+    - ansible-role-firewall
     - geerlingguy.php-mysql
     - geerlingguy.php-memcached
-    - geerlingguy.mysql
+    - ansible-role-mysql
     - manual-cleanup
