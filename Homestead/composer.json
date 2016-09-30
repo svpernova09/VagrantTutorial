@@ -1,0 +1,17 @@
+{
+    "name": "svpernova09/homesteadexample",
+    "description": "Example of using the Laravel Homestead vagrant box",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joe Ferguson",
+            "email": "joe@joeferguson.me"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "require-dev": {
+        "laravel/homestead": "^3.0"
+    }
+}
