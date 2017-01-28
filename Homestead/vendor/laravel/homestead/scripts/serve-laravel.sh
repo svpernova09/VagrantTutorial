@@ -16,7 +16,7 @@ fi
 
 block="server {
     listen ${3:-80};
-    listen ${4:-443} ssl;
+    listen ${4:-443} ssl http2;
     server_name $1;
     root \"$2\";
 
@@ -40,7 +40,7 @@ block="server {
 
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
         fastcgi_index index.php;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
@@ -64,5 +64,3 @@ block="server {
 
 echo "$block" > "/etc/nginx/sites-available/$1"
 ln -fs "/etc/nginx/sites-available/$1" "/etc/nginx/sites-enabled/$1"
-service nginx restart
-service php7.0-fpm restart
